@@ -7,16 +7,20 @@ export type User = {
     password: string
 }
 
+const getRounds = parseInt( process.env.SALT_ROUNDS || '');
+const saltRounds = Number.isInteger(getRounds) ? getRounds : 10;
+const pepper = process.env.BCRYPT_PASSWORD;
+
 export class Users {
     async create(u: User): Promise<User> {
         try {
-            // @ts-ignore
+
             const conn = await Client.connect()
             const sql = 'INSERT INTO users (username, password_digest) VALUES($1, $2) RETURNING *'
 
             const hash = bcrypt.hashSync(
                 u.password + pepper,
-                parseInt(saltRounds)
+                saltRounds
             );
 
             const result = await conn.query(sql, [u.username, hash])
