@@ -8,29 +8,29 @@ export type User = {
     password: string
 }
 
-const getRounds = parseInt( process.env.SALT_ROUNDS || '');
+const getRounds = parseInt(process.env.SALT_ROUNDS || '');
 const saltRounds = Number.isInteger(getRounds) ? getRounds : 10;
 const pepper = process.env.BCRYPT_PASSWORD;
 
-export class Users {
+export class UserList {
     async create(u: User): Promise<User> {
         try {
             const conn = await Client.connect()
-            const sql = 'INSERT INTO users (username, password_digest) VALUES($1, $2) RETURNING *'
+            const sql = 'INSERT INTO users (firstName, lastName, password) VALUES($1, $2, $3) RETURNING *'
 
             const hash = bcrypt.hashSync(
                 u.password + pepper,
                 saltRounds
             );
 
-            const result = await conn.query(sql, [u.firstName, hash])
+            const result = await conn.query(sql, [u.firstName, u.lastName, hash])
             const user = result.rows[0]
 
             conn.release()
 
             return user
         } catch (err) {
-            throw new Error(`unable create user (${u.firstName}): ${err}`)
+            throw new Error(`unable create user (${u.firstName} ${u.lastName}): ${err}`)
         }
     }
 

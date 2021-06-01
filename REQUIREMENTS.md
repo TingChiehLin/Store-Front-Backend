@@ -21,9 +21,9 @@ This is a second Udacity Nano degree project in order to understand PostgreSQL i
 - Show [token required]
 - Create N[token required]
 
-#### Orders
+#### Order
 - Current Order by user (args: user id)[token required]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+- [OPTIONAL] Completed Order by user (args: user id)[token required]
 
 ## Data Shapes
 #### Product
@@ -38,7 +38,7 @@ This is a second Udacity Nano degree project in order to understand PostgreSQL i
 - lastName
 - password
 
-#### Orders
+#### Order
 - id
 - id of each product in the order
 - quantity of each product in the order
