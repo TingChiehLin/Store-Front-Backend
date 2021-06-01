@@ -7,7 +7,8 @@ CREATE TABLE users (
     password VARCHAR
 );
 
-CREATE USER store_user WITH PASSWORD 'password123';
+CREATE USER store_front_user WITH PASSWORD 'password123';
+CREATE USER store_front_test_user WITH PASSWORD 'password123';
 
 GRANT ALL PRIVILEGES ON DATABASE store_front TO store_front_user;
-
+GRANT ALL PRIVILEGES ON DATABASE store_front TO store_front_test_user;

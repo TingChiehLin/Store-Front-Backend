@@ -2,7 +2,7 @@ import Client from '../database';
 import {Product} from "./product";
 
 export type Order = {
-    id: Number,
+    id: string,
     id_each_product: Number,
     quantity: Number,
     user_id:  Number,
