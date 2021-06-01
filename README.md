@@ -8,10 +8,11 @@ Step1:
 how to setup and connect to the database
 what ports the backend and database are running on
 package installation instructions
+
 ```bash
-npm 
+npm run watch
 #or
-yarn
+yarn watch
 ```
 
 Step2: Port
