@@ -5,7 +5,7 @@ export type Order = {
     id: string,
     id_each_product: Number,
     quantity: Number,
-    user_id:  Number,
+    user_id:  string,
     status_of_order: boolean
 }
 
