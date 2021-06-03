@@ -1,4 +1,4 @@
-import express, {Request, Response} from "express";
+import express, {NextFunction, Request, Response} from "express";
 import {User, UserList} from "../models/user";
 
 var jwt = require('jsonwebtoken');
@@ -48,7 +48,7 @@ const create = async (req: Request, res: Response) => {
         password: req.body.password,
     }
     try {
-        const authorizationHeader = req.headers.authorization
+        const authorizationHeader = req.headers.authorization || ''
         const token = authorizationHeader.split(' ')[1]
         jwt.verify(token, process.env.TOKEN_SECRET)
     } catch (err) {
@@ -58,12 +58,11 @@ const create = async (req: Request, res: Response) => {
     }
 }
 
-const verifyAuthToken = (req: Request, res: Response, next) => {
+const verifyAuthToken = (req: Request, res: Response, next: NextFunction) => {
     try {
-        const authorizationHeader = req.headers.authorization
+        const authorizationHeader = req.headers.authorization || ''
         const token = authorizationHeader.split(' ')[1]
         const decoded = jwt.verify(token, process.env.TOKEN_SECRET)
-
         next()
     } catch (error) {
         res.status(401)
@@ -95,7 +94,7 @@ const update = async (req: Request, res: Response) => {
         password: req.body.password,
     }
     try {
-        const authorizationHeader = req.headers.authorization
+        const authorizationHeader = req.headers.authorization || ''
         const token = authorizationHeader.split(' ')[1]
         const decoded = jwt.verify(token, process.env.TOKEN_SECRET)
         if(decoded.id !== user.id) {

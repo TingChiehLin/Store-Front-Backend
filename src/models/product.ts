@@ -72,5 +72,6 @@ export class ProductList {
             throw new Error(`Could not delete product ${id}. Error: ${err}`)
         }
     }
+
 }
 

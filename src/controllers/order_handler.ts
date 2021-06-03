@@ -28,7 +28,7 @@ const order_list_routes = (app: express.Application) => {
         }
     })
 
-    app.post('/orders/:id', (req: Request, res: Response) => {
+    app.post('/orders/:id/products', (req: Request, res: Response) => {
         const article: Order = {
             id: req.params.id,
             id_each_product: Number(req.params.id_each_product),
@@ -43,6 +43,8 @@ const order_list_routes = (app: express.Application) => {
             res.json(err)
         }
     })
+
+
 
     app.put('/orders/:id', (req: Request, res: Response) => {
         const order: Order = {
@@ -68,6 +70,23 @@ const order_list_routes = (app: express.Application) => {
             res.json(err)
         }
     })
+    app.post('/orders/:id/products', addProduct)
+
+}
+
+// ... other methods
+const addProduct = async (_req: Request, res: Response) => {
+    const orderId: string = _req.params.id
+    const productId: string = _req.body.productId
+    const quantity: number = parseInt(_req.body.quantity)
+
+    try {
+        const addedProduct = await store.addProduct(quantity, orderId, productId)
+        res.json(addedProduct)
+    } catch(err) {
+        res.status(400)
+        res.json(err)
+    }
 }
 
 export default order_list_routes
